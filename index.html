@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    
+  <head>
+      
+    <meta charset="utf-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">  
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <title>Wikipedia Search</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+     
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Great Vibes">
+     
+    <style type="text/css">
+      
+      body {
+          background-color:rgb(113, 19, 196);
+          font-family: serif;
+      }
+        
+      .article {
+        list-style-type: none;
+        background-color: rgb(225, 184, 237);
+        padding: 3%;
+        margin-top: 2%;
+        border-right: 5px solid rgb(46, 17, 71);
+        border-left: 5px solid rgb(46, 17, 71);
+        border-radius: 10px;
+          
+      }
+      
+      #wikipedia-search {
+        margin-top: 20px;
+        font-size: 150%;
+      }
+      
+      h1 {
+        text-align: center;
+        margin-top: 50px;
+        color: white;
+        font-size:500%;
+        font-family:"Great Vibes";
+      }
+      
+      #search-box {
+        border: 5px solid rgb(91, 15, 112);
+        border-radius:10px;
+        padding-left: 5%;
+        background-color: rgb(211, 172, 224);
+        color: rgb(91, 15, 112);
+        margin-bottom: 30px;
+        outline: none;
+      }
+      
+      a {
+        text-decoration: none;
+        font-size: 200%;
+        color: black;
+      }
+      
+      a:hover {
+        text-decoration: none;
+        font-size: 200%;
+        color: rgb(113, 19, 196);
+      }
+      
+      a:visited {
+        text-decoration: none;
+        font-size: 200%;
+        color: black;
+      }
+      
+      p {
+        font-size: 140%;
+        color:rgb(46, 17, 71);
+        font-style: italic;   
+      }
+      
+      button {
+        border-radius: 50%;
+        background-color: red;
+        color: white;
+        padding: 5%;
+        border: 1px solid red;
+        margin-left: 50px;
+        outline: none;
+        font-size: 50%;
+        font-style: italic;
+      }
+      
+      button:focus {
+        outline: none;  
+      }
+      
+    </style>
+      
+  </head>
+    
+  <body>
+  
+    <h1>Explore the Wikipedia</h1>
+      
+    <div class="container">
+    
+      <div class="row">
+         
+        <div class="col-md-4">
+        </div>
+    
+        <div class="col-md-4">
+         
+          <form id="wikipedia-search">
+          
+            <input id="search-box" title="Type in your search and hit Enter" type="text" placeholder="Search">
+            
+          </form>
+            
+        </div>
+         
+        <div class="col-md-4">
+         
+          <a href="https://en.wikipedia.org/wiki/Special:Random" target="_blank" > <button title="Click here to get random wikipedia article">Random<br>Wikipedia <br> Article</button></a>
+         
+        </div>
+         
+      </div>
+      
+      <div class="row">  
+       
+         <ul id="wikiList">
+     
+         </ul>
+         
+      </div>
+      
+    </div>      
+      
+    <script
+    src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+   
+    <script>
+    
+      function Load(){
+        
+        $("#wikiList").text("");
+       
+        var search = $("#search-box").val();
+      
+        var wikiUrl = "https://en.wikipedia.org/w/api.php?action=opensearch&search=" + search + "&limit=20&format=json&callback=wikiCallback"  ;
+  
+        $.ajax({
+          url: wikiUrl,
+          dataType: "jsonp",
+          success: function(data){
+            var titles = data[1];
+            var snippets = data[2];
+            var wikiArticles = data[3];
+            
+            for(var i=0; i<wikiArticles.length; i++){
+              $("#wikiList").append('<li class="article"><a href="' + wikiArticles[i] +'" target="_blank">' + titles[i] +'</a><br><p>' + snippets[i] + '</p></li>');
+            }
+            
+          }
+          
+        });
+         
+        return false;
+         
+      }
+        
+      $("#wikipedia-search").submit(Load);
+           
+       
+    </script>
+  
+  </body>
+  
+</html>
+      
+      
+      
+      
+      
+
+ 
+ 
