@@ -7,3 +7,5 @@ You can search for certain item or click for random wikipedia article.
 HTML, CSS, Bootstrap 4 and jQuery used for coding.
 
 API used: https://en.wikipedia.org/w/api.php 
+
+Link to the application: https://codepen.io/Ismail-Dzigal/full/ZJrZVY/
